@@ -1,6 +1,7 @@
-from typing import List, Any, Dict
+from typing import List, Any, Dict, Set
 import copy
 import json as j
+import random as r
 
 
 # 1. Write a function to check if a number is even.
@@ -245,6 +246,7 @@ def num_sqr(n: int = 10) -> str:
     res: Dict = {x: x**2 for x in range(1, n + 1)}
     return f"Dictionary of squares from 1 to {n}: \n\t{j.dumps(res, indent=4)}"
 
+
 # print(num_sqr(60))
 
 
@@ -301,11 +303,71 @@ def sort_lis(lis: List[int]) -> str:
 
 # print(sort_lis([28, 29, 30, 18]))
 
+
 # 12. Create a program to check if a key exists in a dictionary.
+def key_check(d: Dict, k: str) -> str:
+    # count: int = 0  # if multiple keys exists(same)
+
+    # immediate check
+    if not k in d:
+        return f"The dictionary: {j.dumps(d, indent=4)}\n has no key named '{k}'."
+
+    # checking
+    for key, _ in d.items():
+        if key == k:
+            break
+            # count += 1 # dictionary duplicates are overwritten implicitly.
+
+    # word: str = 'keys' if count > 1 else 'key'
+
+    return f"The dictionary: {j.dumps(d, indent=4)}\n has a key named '{k}'."
+
+
+# print(
+#     key_check(
+#         {"Name": "Muhammad Hamza Zai", "Age": None, "Nationality": "Pakistani", "Age":23}, "Age"
+#     )
+# )
 # 13. Create a set and perform union, intersection, and difference.
+def set_opr(s1: Set, s2: Set) -> None:
+    # union
+    print(f"Orginal sets: {s1}, {s2}. \n\t Union : {s1.union(s2)}.")
+    # Intersection
+    print(f"\nOrginal sets: {s1}, {s2}. \n\t Intersection : {s1.intersection(s2)}.")
+    # Difference
+    print(f"\nOrginal sets: {s1}, {s2}. \n\t Difference : {s1.difference(s2)}.")
+
+
+# set_opr({r.randint(1, 10) for _ in range(5)}, {r.randint(1,10) for _ in range(5)})
+
 
 # 14. Write a function to find common elements in two lists.
+def find_common(lis1: List[Any], lis2: List[Any]) -> str:
+    common: List[Any] = []
+    # storing the first list elements in seen
+    seen: Dict = {x: 0 for x in lis1} # this handles duplicates itself
+
+    # comparing with lis2 (efficient way then nested loop)
+    for n in lis2:
+        if n in seen:
+            common.append(n)
+
+    return f"{seen}, \n{common}"
+
+# True, False = 1, 0
+# print(find_common([1, 2, 3, "hamza", True, 2,4, False], [1, 3,2, 4, "hamza", True,4, 0]))
+
 # 15. Write a function that returns the factorial of a number.
+def factorial(n: int)-> int:
+    base: int = 1
+    for i in range(2,n+1):
+        base *= i
+
+    return base
+
+# return the base
+print(factorial(0))
+
 # 16. Create a function that checks whether a string is a palindrome.
 # 17. Write a function to count vowels in a string.
 # 18. Create a dictionary and iterate over its keys and values.
