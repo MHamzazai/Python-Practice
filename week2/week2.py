@@ -1,4 +1,5 @@
-from typing import List, Any, Dict, Set
+# from typing import list, Any, dict, set # old used in < 3.9
+from typing import Any
 import copy
 import json as j
 import random as r
@@ -23,7 +24,7 @@ def check_even(n: int) -> str:
 
 # 2. Create a list and find the sum of all its elements.
 def list_sum() -> str:
-    nums: List[int] = []  # empty for now
+    nums: list[int] = []  # empty for now
 
     # creating a valid integers list
     while True:
@@ -42,14 +43,14 @@ def list_sum() -> str:
         res += n
 
     # final result
-    return f"\nYour List: {nums} \n\t The sum = {res}"
+    return f"\nYour list: {nums} \n\t The sum = {res}"
 
 
 # print(list_sum())
 
 
 # 3. Write a program to find the maximum and minimum in a list.
-def max_min(list: List[int]) -> str:
+def max_min(list: list[int]) -> str:
     # if list consists of same numbers
     if all(n == list[0] for n in list):
         return f"{list} \nAll the elements are equal!"
@@ -75,9 +76,9 @@ def max_min(list: List[int]) -> str:
 
 
 # 4. Create a program that removes duplicates from a list.
-def rem_dup(itm: List[str | int]) -> str:
-    old_list: List[str | int] = copy.deepcopy(itm)  # to preserved the original
-    seen: List[str | int] = []  # saves the first occurence
+def rem_dup(itm: list[str | int]) -> str:
+    old_list: list[str | int] = copy.deepcopy(itm)  # to preserved the original
+    seen: list[str | int] = []  # saves the first occurence
 
     for i in old_list:
         if i not in seen:
@@ -86,15 +87,15 @@ def rem_dup(itm: List[str | int]) -> str:
         else:
             itm.remove(i)
 
-    return f"Old List : {old_list},\n New List : {itm}"
+    return f"Old list : {old_list},\n New list : {itm}"
 
 
 # print(rem_dup([1, 2, 1, 2,3,4, 3,4]))
 
 
 # 5. Write a function to reverse a list.
-def rev_list(lst: List[Any]) -> str:
-    new_list: List[Any] = []
+def rev_list(lst: list[Any]) -> str:
+    new_list: list[Any] = []
 
     for i in lst:
         new_list.insert(0, i)
@@ -106,7 +107,7 @@ def rev_list(lst: List[Any]) -> str:
 
 
 # 6. Create a tuple and access its elements.
-def tup(inp: List[str | int]) -> None:
+def tup(inp: list[str | int]) -> None:
     a: tuple = tuple(inp)
     print(a[1:3])  # at index 1 and 2 (3 exclusive)
     print(a[2:-1])  # at index 2 to 2nd last
@@ -116,10 +117,10 @@ def tup(inp: List[str | int]) -> None:
 
 
 # 7. Convert a list into a tuple and vice versa.
-def lst_tup(inp: List | tuple) -> str:
+def lst_tup(inp: list | tuple) -> str:
     if type(inp) is list:
         res1: tuple = tuple(inp)
-        return f"Given List: {inp}, Tuple: {res1}"
+        return f"Given list: {inp}, Tuple: {res1}"
         # manually list -> tuple
         """
             res = ()
@@ -128,8 +129,8 @@ def lst_tup(inp: List | tuple) -> str:
         """
 
     else:
-        res2: List = list(inp)
-        return f"Given Tuple: {inp}, List: {res2}"
+        res2: list = list(inp)
+        return f"Given Tuple: {inp}, list: {res2}"
         # manually tuple -> list
         """
             res = []
@@ -143,10 +144,10 @@ def lst_tup(inp: List | tuple) -> str:
 
 
 # 8. Write a program to merge two or more dictionaries.
-def merge_dict(**kargs: Dict) -> str:
+def merge_dict(**kargs: dict) -> str:
     # merging
-    new_dict: Dict = {}
-    seen: Dict = {}
+    new_dict: dict = {}
+    seen: dict = {}
 
     # going into first wrapper
     for d in kargs.values():
@@ -173,11 +174,11 @@ def merge_dict(**kargs: Dict) -> str:
                 seen[key] = count
 
     # printing old dicts
-    print("\nOld Dictionaries:")
+    print("\nOld dictionaries:")
     for _, value in kargs.items():
         print(value)
 
-    return f"\nNew Dictionary: {j.dumps(new_dict, indent=4, sort_keys=True)}, \n {seen}"
+    return f"\nNew dictionary: {j.dumps(new_dict, indent=4, sort_keys=True)}, \n {seen}"
 
 
 # print(
@@ -208,9 +209,9 @@ def merge_dict(**kargs: Dict) -> str:
 
 
 # 9. Write a function to count the frequency of elements in a list.
-def ele_fre(lis: List) -> None:
+def ele_fre(lis: list) -> None:
     # saves the count in it
-    res: Dict = {}
+    res: dict = {}
 
     # looping the list
     for i in lis:
@@ -230,7 +231,7 @@ def ele_fre(lis: List) -> None:
             res[str(i)] = count
 
     # result
-    print(f"Given List: {lis} \n Elements Frequencies:")
+    print(f"Given list: {lis} \n Elements Frequencies:")
     for key, value in res.items():
         word: str = "time" if value == 1 else "times"
         print(f"\t{key}: appears {value} {word}.")
@@ -243,16 +244,16 @@ def ele_fre(lis: List) -> None:
 # 10. Create a dictionary of squares of numbers from 1 to n.
 def num_sqr(n: int = 10) -> str:
     # using dictionary comprehension
-    res: Dict = {x: x**2 for x in range(1, n + 1)}
-    return f"Dictionary of squares from 1 to {n}: \n\t{j.dumps(res, indent=4)}"
+    res: dict = {x: x**2 for x in range(1, n + 1)}
+    return f"dictionary of squares from 1 to {n}: \n\t{j.dumps(res, indent=4)}"
 
 
 # print(num_sqr(60))
 
 
 # 11. Write a program to sort a list in ascending order.
-def sort_lis(lis: List[int]) -> str:
-    old_list: List[int] = copy.deepcopy(lis)
+def sort_lis(lis: list[int]) -> str:
+    old_list: list[int] = copy.deepcopy(lis)
     swapped: bool = True  # the indicator
 
     # sorting
@@ -272,14 +273,14 @@ def sort_lis(lis: List[int]) -> str:
         if not swapped:
             break
 
-    return f"Old List: {old_list} \n New List: {lis}"
+    return f"Old list: {old_list} \n New list: {lis}"
 
 
 # print(sort_lis([29, 28, 30, 18]))
 
 #  not efficient and can't solve complex cases
-# def sort_lis(lis: List[int]) -> str:
-#     old_list: List[int] = copy.deepcopy(lis)
+# def sort_lis(lis: list[int]) -> str:
+#     old_list: list[int] = copy.deepcopy(lis)
 
 #     # for comparing
 #     base_val: int = lis[0]
@@ -299,13 +300,13 @@ def sort_lis(lis: List[int]) -> str:
 
 #         base_val = n  # updating it with next element
 
-#     return f"Old List: {old_list} \n New List: {lis}"
+#     return f"Old list: {old_list} \n New list: {lis}"
 
 # print(sort_lis([28, 29, 30, 18]))
 
 
 # 12. Create a program to check if a key exists in a dictionary.
-def key_check(d: Dict, k: str) -> str:
+def key_check(d: dict, k: str) -> str:
     # count: int = 0  # if multiple keys exists(same)
 
     # immediate check
@@ -329,7 +330,7 @@ def key_check(d: Dict, k: str) -> str:
 #     )
 # )
 # 13. Create a set and perform union, intersection, and difference.
-def set_opr(s1: Set, s2: Set) -> None:
+def set_opr(s1: set, s2: set) -> None:
     # union
     print(f"Orginal sets: {s1}, {s2}. \n\t Union : {s1.union(s2)}.")
     # Intersection
@@ -342,10 +343,10 @@ def set_opr(s1: Set, s2: Set) -> None:
 
 
 # 14. Write a function to find common elements in two lists.
-def find_common(lis1: List[Any], lis2: List[Any]) -> str:
-    common: List[Any] = []
+def find_common(lis1: list[Any], lis2: list[Any]) -> str:
+    common: list[Any] = []
     # storing the first list elements in seen
-    seen: Dict = {x: 0 for x in lis1} # this handles duplicates itself
+    seen: dict = {x: 0 for x in lis1}  # this handles duplicates itself
 
     # comparing with lis2 (efficient way then nested loop)
     for n in lis2:
@@ -354,25 +355,118 @@ def find_common(lis1: List[Any], lis2: List[Any]) -> str:
 
     return f"{seen}, \n{common}"
 
+
 # True, False = 1, 0
 # print(find_common([1, 2, 3, "hamza", True, 2,4, False], [1, 3,2, 4, "hamza", True,4, 0]))
 
+
 # 15. Write a function that returns the factorial of a number.
-def factorial(n: int)-> int:
+def factorial(n: int) -> int:
     base: int = 1
-    for i in range(2,n+1):
+    for i in range(2, n + 1):
         base *= i
 
     return base
 
+
 # return the base
-print(factorial(0))
+# print(factorial(0))
+
 
 # 16. Create a function that checks whether a string is a palindrome.
+def check_pall(s: str) -> str:
+    # reversing the string
+    new_str: str = ""
+
+    # for i in range(len(s)-1, -1, - 1):
+    #     print(s[i])
+
+    # another one
+    for ch in s[-1::-1]:
+        new_str += ch
+
+    if new_str.lower() == s.lower():
+        return f"\nThe string '{s}' is a Palindrome."
+
+    return f"\nThe string '{s}' is not a Palindrome."
+
+
+# print(check_pall("Naman"))
+
+
 # 17. Write a function to count vowels in a string.
+def count_vowels(s: str) -> str:
+    vow_counts: dict = {vow: 0 for vow in ["a", "e", "i", "o", "u"]}
+
+    for ch in s:
+        # if vowel
+        if ch.lower() in vow_counts:
+            # incrementing
+            vow_counts[ch.lower()] += 1
+
+    return f"Vowels count in '{s}':\n{j.dumps(vow_counts, indent=4)}"
+
+
+# print(count_vowels("Arham"))
+
+
 # 18. Create a dictionary and iterate over its keys and values.
+def dic_opr() -> None:
+    # creating a dictionary
+    alpha: str = "abcdefghijklmnopqrstuvwxyz"
+    d: dict = {n.capitalize(): r.randint(1, 100) for n in r.sample(alpha, 10)}
+
+    for key, value in d.items():
+        print(f"{key}: {value}.")
+
+
+# dic_opr()
+
+
 # 19. Write a function to remove all punctuation from a string.
+def rem_punc(s: str) -> str:
+    old: str = s
+    new: str = ""
+    punc: str = "!_-,.:;'"
+
+    # immediate check
+    if not any(n in s for n in punc):
+        return f"\n No punctuations in {s}."
+
+    # line by line checking
+    for ch in s:
+        # if exists then replace
+        if ch not in punc:
+            new += ch
+
+    return f"Old: {old}, \nNew: {new}"
+
+
+# print(rem_punc("hamza!!!"))
+
+
 # 20. Write a function to capitalize the first letter of each word in a string.
+def cap_word(s: str) -> str:
+    old: str = s.strip()
+    new: str = ""
+
+    # first letter of first word
+    new += old[0].capitalize()
+
+    # capitalizing
+    for i in range(1,len(old)):
+        if old[i] == " " and i != len(old)-1:
+            new += ' ' + old[i+1].capitalize()
+        else:
+            if old[i-1] != ' ':
+                new += old[i]
+
+
+    return f"Old: {old}, \nNew: {new.strip()}"
+
+
+print(cap_word("                     my name is hamza and I'am a computer science student.           "))
+
 # 21. Create a list comprehension to get squares of all even numbers in a range.
 # 22. Write a function to check if a string is an anagram.
 # 23. Create a nested dictionary to represent student records.
