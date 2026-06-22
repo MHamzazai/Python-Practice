@@ -8,13 +8,12 @@ def send_whatsapp_messages(message: str, count: int):
     for i in range(1, count + 1):
         # Click on the message input box (bottom center of the screen usually)
         # Adjust coordinates if needed — or just make sure WhatsApp is in focus
-
         # Click on message input field
-        pyautogui.click()  # clicks wherever your cursor is — position it on the input box
-        time.sleep(0.0001)
+        # pyautogui.click()  # clicks wherever your cursor is — position it on the input box
+        # time.sleep(0.005)
 
         # Type the message
-        pyautogui.typewrite(f"{message}", interval=0.0005)
+        pyautogui.typewrite(f"{message}", interval=0.5)
 
         # Press Enter to send
         pyautogui.press('enter')
@@ -23,8 +22,8 @@ def send_whatsapp_messages(message: str, count: int):
 
 if __name__ == "__main__":
     # ── CONFIGURE THESE ──────────────────────────────
-    MESSAGE = "Halke me!"
-    COUNT   = 100  # Number of messages to send
+    MESSAGE = "A__"
+    COUNT   = 500  # Number of messages to send
     # ─────────────────────────────────────────────────
 
     send_whatsapp_messages(MESSAGE, COUNT)

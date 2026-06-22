@@ -1,5 +1,5 @@
 # from typing import list, Any, dict, set # old used in < 3.9
-from typing import Any
+from typing import Any, TypedDict, get_type_hints, cast
 import copy
 import json as j
 import random as r
@@ -454,22 +454,160 @@ def cap_word(s: str) -> str:
     new += old[0].capitalize()
 
     # capitalizing
-    for i in range(1,len(old)):
-        if old[i] == " " and i != len(old)-1:
-            new += ' ' + old[i+1].capitalize()
+    for i in range(1, len(old)):
+        if old[i] == " " and i != len(old) - 1:
+            new += " " + old[i + 1].capitalize()
         else:
-            if old[i-1] != ' ':
+            if old[i - 1] != " ":
                 new += old[i]
-
 
     return f"Old: {old}, \nNew: {new.strip()}"
 
 
-print(cap_word("                     my name is hamza and I'am a computer science student.           "))
+# print(
+#     cap_word(
+#         "                     my name is hamza and I'am a computer science student.           "
+#     )
+# )
+
 
 # 21. Create a list comprehension to get squares of all even numbers in a range.
+def lst_sqr(r: int = 10) -> str:
+    res = [n**2 for n in range(r + 1) if n % 2 == 0]
+
+    return f"Squares of all even numbers till {r}: \n {res}"
+
+
+# print(lst_sqr(12))
+
 # 22. Write a function to check if a string is an anagram.
+"""
+--- Anagram ---
+    -> An anagram is a phrase or word created by rearranging 
+    all the letters of another word, by using all the 
+    letters exactly once.
+
+    _ Examples _
+    = Listen --  Silent.
+    = Race   --  Care.
+
+ (so, we have to take 2 strings and then compare them)
+
+"""
+
+
+def check_ana(s1: str, s2: str) -> str:
+    if len(s1) != len(s2):
+        return f"'{s1}' can't be anagram of '{s2}'."
+
+    d1: dict = {}
+    d2: dict = {}
+
+    # saving the letters count of s1
+    for ch in s1:
+        # d1.setdefault(ch.lower(), 0)
+        # d1[ch.lower()] += 1
+        d1[ch.lower()] = d1.get(ch.lower(), 0) + 1
+
+    # saving the letters count of s2
+    for ch in s2:
+        # d2.setdefault(ch.lower(), 0)
+        # d2[ch.lower()] += 1
+        d2[ch.lower()] = d2.get(ch.lower(), 0) + 1
+
+    # only if counts are same
+    if d1 == d2:
+        return f"'{s1}' is an anagram of '{s2}'."
+
+    return f"'{s1}' is not an anagram of '{s2}'."
+
+
+# print(check_ana("silent", "listen"))
+
 # 23. Create a nested dictionary to represent student records.
+# creating base student record type
+
+
+class Address(TypedDict):
+    House_no: str
+    Town: str
+    famous_place: str
+
+
+class Grades(TypedDict):
+    Math: int
+    Physics: int
+    chemistry: int
+
+
+class Feedback(TypedDict):
+    Teachers: str
+    Students: str
+    Staff: str
+
+
+class FocusOn(TypedDict):
+    Discipline: str
+    Anger: str
+    Behavior: str
+    skill_development: str
+    religious_matters: str
+
+
+class Student(TypedDict):
+    Name: str
+    father_name: str
+    Age: int
+    Address: Address
+    Grades: Grades
+    Feedback: Feedback
+    focus_on: FocusOn
+
+
+# type means it's a class not it's instance. It can accept any class
+def build_from_hints(typ_hint: type) -> Student:
+    hints: dict = get_type_hints(typ_hint)  # return fields and their type of objects
+    # to fulfill mypy requirements
+    # result: dict[str, Any] = {}  # actual dict where everything will save
+    result: dict[str, Any] = {}  # actual dict where everything will save
+
+    for field, typ in hints.items():
+        # if the type is nested
+        if hasattr(typ, "__annotations__"):
+            print(f"\n--- Fill in '{field}' ---:")
+            result[field] = build_from_hints(typ)  # recurse into it
+        else:
+            while True:
+                # take the input if it is normal (str, int, bool,...)
+                raw: str = input(
+                    f"\nEnter Your '{field}' must be ({typ.__name__}): "
+                ).strip().lower()
+                
+                if not raw or (typ == str and raw.isdigit()):
+                    print("Invalid Input\n")
+                    continue
+
+                try:
+                    result[field] = typ(raw).title() if typ == str else typ(raw)
+                    break
+                except Exception:
+                    print("Incorrect Input!\n")
+                    continue
+
+    return cast(Student, result)
+
+
+def stud_rec(d: Student | None) -> None:
+    if d is None:
+        return
+
+    print(f"\nRecord of '{d['Name'].title()}':")
+    print(j.dumps(d, indent=4))
+
+
+stud_rec(build_from_hints(Student))  # mypy can't verify it
+
+
 # 24. Write a function to flatten a nested list.
 # 25. Write a program to find the second highest number in a list.
 # 26. Create a function to rotate a list left by k positions.
