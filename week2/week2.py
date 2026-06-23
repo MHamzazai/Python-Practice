@@ -579,10 +579,12 @@ def build_from_hints(typ_hint: type) -> Student:
         else:
             while True:
                 # take the input if it is normal (str, int, bool,...)
-                raw: str = input(
-                    f"\nEnter Your '{field}' must be ({typ.__name__}): "
-                ).strip().lower()
-                
+                raw: str = (
+                    input(f"\nEnter Your '{field}' must be ({typ.__name__}): ")
+                    .strip()
+                    .lower()
+                )
+
                 if not raw or (typ == str and raw.isdigit()):
                     print("Invalid Input\n")
                     continue
@@ -605,11 +607,58 @@ def stud_rec(d: Student | None) -> None:
     print(j.dumps(d, indent=4))
 
 
-stud_rec(build_from_hints(Student))  # mypy can't verify it
+# stud_rec(build_from_hints(Student))  # mypy can't verify it
 
 
 # 24. Write a function to flatten a nested list.
+def flat_list(lis: list) -> list:
+    result: list = []
+
+    for ele in lis:
+        # if type(ele) == list:
+        if isinstance(ele, list):  # more pythonic
+            # print(type(ele), ele)
+            result += flat_list(ele)
+
+        else:
+            # print(type(ele), ele)
+            result.append(ele)
+
+    return result
+
+
+def disply(ls: list) -> str:
+    res: list = flat_list(ls)
+
+    return f"Old List: {ls}\n New List: {res}"
+
+
+# print(disply([1, 2, [3, 4], [5, [6, 7]]]))
+
+
 # 25. Write a program to find the second highest number in a list.
+def sec_high(lis: list[int]) -> str:
+
+    if len(lis) < 2:
+        return f"Atleast 2 elements are required!"
+
+    base: int = lis[0]
+    sec: int = lis[1]
+
+    if all(n == base for n in lis):
+        return f"All elements are same!"
+
+    for n in lis[1:]:
+        if base < n:
+            sec, base = base, n
+            
+        elif sec < n:
+            sec = n
+
+    return f"Given List: {lis}\n Second Highest: {sec}."
+
+
+print(sec_high([5, 1, 3]))
 # 26. Create a function to rotate a list left by k positions.
 # 27. Write a function to find the missing number from a list of 1 to N.
 # 28. Write a program to remove all None values from a list.
