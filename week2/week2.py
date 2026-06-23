@@ -651,14 +651,14 @@ def sec_high(lis: list[int]) -> str:
     for n in lis[1:]:
         if base < n:
             sec, base = base, n
-            
+
         elif sec < n:
             sec = n
 
     return f"Given List: {lis}\n Second Highest: {sec}."
 
 
-print(sec_high([5, 1, 3]))
+print(sec_high([5, 1]))
 # 26. Create a function to rotate a list left by k positions.
 # 27. Write a function to find the missing number from a list of 1 to N.
 # 28. Write a program to remove all None values from a list.
