@@ -658,9 +658,49 @@ def sec_high(lis: list[int]) -> str:
     return f"Given List: {lis}\n Second Highest: {sec}."
 
 
-print(sec_high([5, 1]))
+# print(sec_high([5, 1]))
 # 26. Create a function to rotate a list left by k positions.
+def rot_list(lis: list, k: int) -> str:
+    # edge cases
+    if len(lis) <= 1:
+        return f"List must have 2 or more elements(numbers)!"
+    elif k == 0:
+        return f"k = {k}, means no rotation needed."
+
+    res: list = []
+    k = k % len(lis)  # to ensure proper value K must not > len(lis)
+
+    # getting first k elements
+    first_ele: list = lis[:k]  # [start : stop] stop excluded
+    last_ele: list = lis[k:]  # naturally runs upto the end element (includes k)
+
+    res = last_ele + first_ele
+
+    return f"Old {lis} \nNew {res}"
+
+
+# print(rot_list([10, 20, 30, 40, 50], 3))
+
+
 # 27. Write a function to find the missing number from a list of 1 to N.
+def miss_num_det(lis: list[int]) -> str:
+    N: int = len(lis) + 1  # as there always 1 number is missing
+    expected_sum: int = N * (N + 1) // 2  # formula to calculate the correct sum
+    actual_sum: int = 0
+
+    # manually calculating actual sum
+    for n in lis:
+        actual_sum += n
+
+    # for missing number
+    res: int = expected_sum - actual_sum
+
+    return f"Given List: {lis} \n Missing Number: {res}"
+
+
+print(miss_num_det([1, 2, 3, 4, 6]))
+
 # 28. Write a program to remove all None values from a list.
+
 # 29. Write a function to merge two dictionaries and handle key collisions by summing values.
 # 30. Create a function to find unique elements present in only one of two lists.
