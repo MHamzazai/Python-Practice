@@ -698,9 +698,103 @@ def miss_num_det(lis: list[int]) -> str:
     return f"Given List: {lis} \n Missing Number: {res}"
 
 
-print(miss_num_det([1, 2, 3, 4, 6]))
+# print(miss_num_det([1, 2, 3, 4, 6]))
+
 
 # 28. Write a program to remove all None values from a list.
+def rem_Non(lis: list) -> str:
+    # safety checks first to immediate exit
+    if len(lis) == 0:
+        return f"\nNo List found!"
+
+    if None not in lis:
+        return f"\nThe given list did not possess any None value!"
+
+    # first getting the None values
+    old: list = lis.copy()
+    for (
+        n
+    ) in (
+        old
+    ):  # for edge cases [none, none,...] iteration and remove will skip consecutive values
+        if n is None:
+            lis.remove(n)  # iterating over copy and modifying original
+
+    return f"Old List: {old} \n New List: {lis}"
+
+
+# print(rem_Non([1,23,None, None]))
+
 
 # 29. Write a function to merge two dictionaries and handle key collisions by summing values.
+def merge_dict2(*args: dict) -> str:
+    # resultant dictionary
+    result: dict = {}
+
+    # finding the common keys and summing their values:
+    for n in args:
+        for key, value in n.items():
+            if key in result:
+                # only straight add when both are integers
+                if type(value) == type(result[key]) == int:
+                    result[key] += value
+                # otherwise state that sum isn't possible
+                elif result[key] != "Can't sum":
+                    result[key] = "Can't sum"
+            else:
+                result[key] = value
+
+    return f"Old Dictionaries: {args} \n New Dictionary: {result}"
+
+
+# print(
+#     merge_dict2(
+#         {"name": "hamza", "age": 22},
+#         {"name": "1", "age": 0},
+#         {"name": "khan", "age": 10},
+#     )
+# )
+
+
 # 30. Create a function to find unique elements present in only one of two lists.
+def uniq_ele(lis1: list, lis2: list) -> str:
+    # edge cases
+
+    if not lis1:
+        return f"Old Lists: {lis1,lis2}\n New List: {sorted(lis2)}"
+
+    elif not lis2:
+        return f"Old Lists: {lis1, lis2} \n New List: {sorted(lis1)}"
+
+    if all(n in lis2 for n in lis1):
+        return f"Both lists are similar!"
+
+    # finding the unique elements
+    result: list = []
+    old: list = lis2.copy()
+
+    for n in lis1:
+        # appending the unique one's
+        if n not in lis2 and n not in result:
+            result.append(n)
+        # removing the duplicates from lis2 (fast trick)
+        elif n in lis2:
+            lis2.remove(n)
+
+    result += lis2
+
+    # for duplicates in result
+    if any(result.count(x) > 1 for x in result):
+        dup: dict = {n: result.count(n) for n in result if result.count(n) > 1}
+
+        for n in result.copy():
+            if n in dup:
+                count: int = dup[n]
+                if count > 1:
+                    result.remove(n)
+                    dup[n] -= 1
+
+    return f"Old Lists: {lis1, old}\n New List: {sorted(result)}"
+
+
+# print(uniq_ele([1, 2, 3], []))
