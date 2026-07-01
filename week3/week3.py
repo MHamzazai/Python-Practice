@@ -1,5 +1,5 @@
 from pathlib import Path
-import json, os
+import json, os, time
 
 
 # Q1. Write a Python script to read a file and print its contents.
@@ -37,6 +37,28 @@ def read_file(f_name: str = "Demo.json") -> str:
 
 
 # Q2. Create a file and write your name into it.
+def name_file(f_name: str = "Demo2.txt") -> str:
+    file_path: Path = Path.joinpath(Path(__file__).parent, f_name)
+    # creating a new file
+    try:
+        with open(file_path, "w") as f:
+            f.writelines("Hi, I am Muhammad Hamza Zai!")
+    except FileExistsError as e:
+        print({e})
+
+    print(
+        f"\nYou have 10 seconds to check the file '{f_name}' after it, it will get vanish!"
+    )
+    time.sleep(10)
+
+    # deleting the file
+    os.remove(file_path)
+
+    return f"\n\tThe file '{f_name}' has been deleted!"
+
+
+# print(name_file())
+
 # Q3. Handle a ZeroDivisionError using try-except.
 # Q4. Write a program to handle file not found error.
 # Q5. Create a module with a function and import it in another file.
